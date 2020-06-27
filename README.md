@@ -154,7 +154,7 @@ DMA是一个独立运行的处理器，能够与CPU同时运行。它主要负�
 
 主存中系统区内存占用固定的３２块：０号页框～３１号页框。进一步细致划分为：
 
-![Alt pic1](/pictures/chart1.png)
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/pictures/chart1.png)
 
 其中PCB池中一个PCB的尺寸大小为６４个双字节存储单元，所以容纳八个PCB的PCB池需要２个物理页框。模拟一个特权指令集的长度为１２８个双字节存储单元，其中包括３种硬件中断处理程序、５种本人详细设计的异常处理程序和４种没有实际操作的普通系统特权程序。共１２个，所以占用６页。
 
@@ -168,7 +168,7 @@ DMA是一个独立运行的处理器，能够与CPU同时运行。它主要负�
 
 对这２０４８个扇区的细致划分如下：
 
-![Alt pic2](/pictures/chart2.png)
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/pictures/chart2.png)
 
 其中，设备文件区和作业存储文件区被包括在文件区中。交换区与文件区共同构成整个辅存。
 
@@ -177,7 +177,7 @@ DMA是一个独立运行的处理器，能够与CPU同时运行。它主要负�
 ## 3	数据结构与基础操作的抽象与设计
 ### 3.1	用户指令集系统
 
-![Alt pic3](/pictures/chart3.png)
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/pictures/chart3.png)
 
 #### 计算指令执行详细机制
 
@@ -191,7 +191,7 @@ DMA是一个独立运行的处理器，能够与CPU同时运行。它主要负�
 
 再次回到CPU，进程阻塞，转为内核态，系统释放源寄存器，成功后唤醒该进程。该进程再回到CPU时计算指令执行完毕，取下一条指令执行。
 
-![Alt pic3](/pictures/操作系统报告流程图-计算.png)
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/pictures/操作系统报告流程图-计算.png)
 
 #### 访存指令执行详细机制
 
@@ -203,7 +203,7 @@ DMA是一个独立运行的处理器，能够与CPU同时运行。它主要负�
 
 如果访存成功，访存指令的任务就完成了，下面访存指令将释放该进程占用的目的寄存器资源。该释放请求将触发V操作，同时阻塞自己。当系统帮助他释放占用的寄存器，如果释放成功则唤醒该进程。之后进程会再次进入CPU运行，此时访存指令执行完成，并取下一条指令执行。
 
-![Alt pic2](/pictures/操作系统报告流程图访存.png)
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/pictures/操作系统报告流程图访存.png)
 
 #### 输入指令执行详细机制
 
@@ -217,7 +217,7 @@ DMA是一个独立运行的处理器，能够与CPU同时运行。它主要负�
 
 进程再次回到CPU时不仅占有系统缓冲区、指定占用的外设、还拥有来自外设文件中的数据，此时输入指令是指上已经完成。接下来就阻塞自己，触发系统V操作释放系统缓冲。再次进入CPU则触发系统V操作释放外设。指令到此就运行结束。
 
-![Alt pic2](/pictures/操作系统报告流程图-输入.png)
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/pictures/操作系统报告流程图-输入.png)
 
 #### 输出指令执行详细机制
 	
@@ -235,25 +235,26 @@ DMA是一个独立运行的处理器，能够与CPU同时运行。它主要负�
 
 作业控制块包括作业号，作业优先级，指令集在外存中存放的地址，作业拥有的指令数，数据集在外存中存放的地址，数据集中数据量。主要用于管理根据请求创建的作业的指令集和数据集，主要存放在作业后备队列中。根据本人的设计，时钟每走５秒的时间，就会检测一下后备作业队列中是否有等待创建为进程的JCB作业控制块，如果有则检测是否能够创建为进程，如果可以则创建。
 
-![Alt pic2](/pictures/JCB.png)
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/pictures/JCB.png)
 
 ### 3.3	进程控制块PCB
 	
 进程控制块主要包括进程标识、现场信息、控制信息三大部分。位于系统区内存的PCB池中。在系统进行进程的三级调度时，主要操作的就是进程的PCB部分。通过PCB部分唯一确定一个进程，并且从中得到所有进程的必要信息。
 
-![Alt pic2](/pictures/PCB.png)
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/pictures/PCB.png)
 
 其中进程标识用来与其他同在系统中的进程做区分。
 
 另外现场信息保存的是进程从运行态转变为其他状态（就绪态和阻塞态）时需要保存离开前CPU的现场信息，即CPU中关键寄存器的内容，以便再次进入CPU运行时能够继续运行。这里用PCB保存现场信息与进程核心栈保存现场信息是有区别的（见后文进程映像部分）。
 
-![Alt pic2](/pictures/PCB-1.png)
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/pictures/PCB-1.png)
 
 结构最为复杂的是PCB的控制信息部分，也是存储关键信息最多的部分。包括：
 
 #### 进程调度信息
 
 1)	进程状态（阻塞、就绪、运行、挂起就绪和挂起阻塞5种状态）；
+
 2)	阻塞原因（DMA输入等待、DMA输出等待、等待源寄存器、等待目的寄存器、等待释放源寄存器、等待释放目的寄存器、等待系统缓冲区、等待释放系统缓冲区、数据段访存缺页异常、正文段访存缺页异常、等待外设、等待释放外设、触发一般系统特权程序、等待DMA输入善后共14种阻塞原因）；
 
 3)	进程优先级（1~10范围内的静态优先级）。
@@ -286,7 +287,7 @@ DMA是一个独立运行的处理器，能够与CPU同时运行。它主要负�
 
 3)	进程已运行时间的总和（自从进程被创建以来，在CPU中运行的时间总和）。
 
-![Alt pic2](/pictures/PCB-2.png)
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/pictures/PCB-2.png)
 
 ### 3.4	进程映像
 进程映像共由5部分构成：PCB、正文段、数据段、用户缓冲区和核心栈。PCB已在上文提到，下面介绍其他4个部分。
@@ -312,7 +313,7 @@ DMA是一个独立运行的处理器，能够与CPU同时运行。它主要负�
 
 上文提到无论是异常还是硬件中断都需要用核心栈保存现场。其中缺页异常和系统调用都属于异常，也就是内中断。而外中断包括IO中断（DMA发出的中断信号），时钟中断（时钟发出的时间片耗尽信号）以及硬件故障。
 
-![Alt pic2](/pictures/中断分类.png)
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/pictures/中断分类.png)
 
 在此次课程设计中，没有办法模拟硬件故障，所以摒弃该情况。综上所述，无论是异常还是硬件中断都要将现场保存在核心栈中。保存后再进行CPU转为内核态和进程的阻塞。例如当进程执行一条访存指令，它将触发系统的P操作，替它申请目的寄存器，此时，就应当用核心栈保存现场，再转为内核态，阻塞进程，系统执行P操作。
 
@@ -330,7 +331,7 @@ DMA是一个独立运行的处理器，能够与CPU同时运行。它主要负�
 	
 页表外页表中，页表承担的功能是逻辑页号和内存物理页号的对应。而外页表则负责外存地址和逻辑地址的对应。本人所采用的是复杂页表结构，它将上述两种对应关系聚合在一张页表上。
 
-![Alt pic2](/pictures/页表.png)
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/pictures/页表.png)
 
 首先要想将逻辑页、物理页框、外存扇区的对应关系都体现在一张表上肯定长度不够，不能使用１６位存储单元存储一个表项。
 
@@ -352,7 +353,7 @@ DMA是一个独立运行的处理器，能够与CPU同时运行。它主要负�
 
 伙伴算法的功能是——管理物理内存，那有可以细分为两个功能：申请空闲块功能和释放占用块的功能。
 
-![Alt pic2](/pictures/伙伴算法.png)
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/pictures/伙伴算法.png)
 
 首先中间的方块是空闲块链表的表头，它组成一个数组，数组长度为要分配内存范围转化为2的幂后的指数部分加1，比如本系统中要分配的物理内存大小为32块，那么该数组的长度为6。
 
@@ -398,13 +399,13 @@ DMA是一个独立运行的处理器，能够与CPU同时运行。它主要负�
 
 然后时预调页过程，也就是将进程映像中的用户缓冲区和核心栈在内存中开辟。同时更新页表的物理页号以及外存地址字段。因为这两个部分时开辟而非调入，所以外存地址字段应该为交换区的对应位置。最后将初始化后的PCB加入到就绪队列中等待运行。
 
-![Alt pic2](/pictures/操作系统报告流程图-创建进程.png)
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/pictures/操作系统报告流程图-创建进程.png)
 
 #### 3.10.2	进程撤销
 
 当进程的指令集执行完毕后撤销。进程的撤销包括几个步骤：首先释放交换区，使用的是上文外存位示图法中提到的释放交换区扇区的函数，然后通过伙伴算法释放全部内存块，放弃进程占用的页表，将PCB加入到PCB池。
 
-![Alt pic2](/pictures/操作系统报告流程图-撤销进程.png)
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/pictures/操作系统报告流程图-撤销进程.png)
 
 #### 3.10.3	进程阻塞
 
@@ -460,13 +461,13 @@ DMA是一个独立运行的处理器，能够与CPU同时运行。它主要负�
 
 系统需要淘汰旧的快表项，最简单的策略是“先进先出”，总是淘汰最先登记的页面。每次运行态的进程变更就要清空快表重新填充，参考了教材218页有：在重新装载MMU的页表基址时，就会清空快表重填。
 
-![Alt pic2](/pictures/缺页中断.png)
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/pictures/缺页中断.png)
 
 #### 3.11.2	DMA赋值和启动程序
 
 DMA赋值分别要将系统缓冲区的地址、用户缓冲区的地址，输入方向、传输字数赋值给DMA。然后想DMA发送启动信号，DMA的线程会感知到CPU的消息并进行工作。
 
-![Alt pic2](/pictures/操作系统课程设计设计图-DMA.png)
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/pictures/操作系统课程设计设计图-DMA.png)
 
 #### 3.11.3	输入善后处理
 
@@ -514,7 +515,7 @@ IO中断是指DMA在启动后与CPU同时处在工作状态，DMA一直执行数
 
 负责执行CPU发来的数据传输工作，与CPU并发执行。
 
-![Alt pic2](/pictures/DMA操作系统课程设计设计图-第 11 页.png)
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/pictures/DMA操作系统课程设计设计图-第 11 页.png)
 
 ## 5	实践心得
 ### 5.1 设计贴近理论
