@@ -515,8 +515,6 @@ IO中断是指DMA在启动后与CPU同时处在工作状态，DMA一直执行数
 
 负责执行CPU发来的数据传输工作，与CPU并发执行。
 
-![add image](https://github.com/Nirvana-fsociety/OSsimulation/raw/master/pictures/DMA操作系统课程设计设计图-第 11 页.png)
-
 ## 5	实践心得
 ### 5.1 设计贴近理论
 
