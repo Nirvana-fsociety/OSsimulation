@@ -1,5 +1,5 @@
 # OSsimulation
-The project is for operating system courses, and it is the most complicated project that I have realized.
+贺宁的操作系统课程设计作品，题目：可视化仿真实现作业管理与虚页内存管理。这是目前为止我设计并实现的最为复杂的项目。
 code文件夹：保存程序代码，包括：工程文件、源程序代码；并提供本文件夹每个文件的简单说明文件；
             OSProject1.0文件夹：
                               文件内容说明.txt：该文件夹内文件简介。
