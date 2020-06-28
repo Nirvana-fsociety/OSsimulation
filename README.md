@@ -1,3 +1,13 @@
+# 如果README.md中的图片无法查看
+
+如果无法查看README.md中的图片，请在本地文件位置：C:\Windows\System32\drivers\etc\hosts把hosts文件用管理员权限打开，
+
+并在其末尾加上一行
+
+199.232.68.133		raw.githubusercontent.com
+
+并保存即可打开。
+
 # 可视化仿真实现作业管理与虚页内存管理
 
 ## 摘要
