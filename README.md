@@ -548,15 +548,25 @@ IO中断是指DMA在启动后与CPU同时处在工作状态，DMA一直执行数
 
 将其中的HNOS3.rar压缩包文件解压；
 
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/blob/master/pictures/1.png)
+
 解压后会看到一个以“HNOS3”命名的文件夹，然后点击进入该文件夹；
+
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/blob/master/pictures/2.png)
 
 在保存该文件夹的文件管理器界面的文件路径框中单击鼠标左键；
 
 然后键入“cmd”字符串，输入回车，会弹出Windows系统的控制台程序；
 
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/blob/master/pictures/3.png)
+
 输入java -jar HNOS3.jar后按下回车，进入仿真系统；
 
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/blob/master/pictures/4.png)
+
 到此，安装完成。
+
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/blob/master/pictures/5.png)
 
 ### 使用
 
@@ -564,9 +574,15 @@ IO中断是指DMA在启动后与CPU同时处在工作状态，DMA一直执行数
 
 点击进入该文件夹，将内部我之前测试留下的文件都删除。
 
-到HNOS3文件夹的外部找到准备的三个用例，然后选择其中一种用例，打开其文件夹。比如选择“死锁用例”文件夹，单击打开内部，将内部所有文件复制到input文件夹中。
+到HNOS3文件夹的外部找到准备的三个用例，然后选择其中一种用例，打开其文件夹。
+
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/blob/master/pictures/7.png)
+
+比如选择“死锁用例”文件夹，单击打开内部，将内部所有文件复制到input文件夹中。
 
 （注意不是将文件夹放进input文件夹，而是将文件夹内的全部文件放入input文件夹。）
+
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/blob/master/pictures/8.png)
 
 然后重新调出程序界面，点击“选用外存文件”按钮，会发现请求序列变为用例的请求序列，其实已经将用例读入。
 
@@ -592,6 +608,8 @@ IO中断是指DMA在启动后与CPU同时处在工作状态，DMA一直执行数
 
 点击后会弹出使用伙伴算法的位示图部分显示出的内存分配和回收情况。一列代表一个页框的情况。一列全部变为灰色表示被装用。
 
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/blob/master/pictures/10.png)
+
 要声明一点，前0~31号属于系统区固定的页框，所以只要系统在运行，前10块都会被占用。不会被回收。
 
 32~63号属于用户区使用，只要进程全部撤销，最后一定会32个块全部回收，达到最后一行全绿的效果。
@@ -600,4 +618,6 @@ IO中断是指DMA在启动后与CPU同时处在工作状态，DMA一直执行数
 
 
 点击页表按钮会弹出可视化后的页表。如下图所示。同样地，点击快表按钮，会弹出可视化后的快表。
+
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/blob/master/pictures/11.png)
 
