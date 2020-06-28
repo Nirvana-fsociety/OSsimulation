@@ -155,7 +155,7 @@ DMA是一个独立运行的处理器，能够与CPU同时运行。它主要负�
 主存中系统区内存占用固定的３２块：０号页框～３１号页框。进一步细致划分为：
 
 
-![add image](\pictures\chart1.png)
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/raw/master/pictures/chart1.png)
 
 其中PCB池中一个PCB的尺寸大小为６４个双字节存储单元，所以容纳八个PCB的PCB池需要２个物理页框。模拟一个特权指令集的长度为１２８个双字节存储单元，其中包括３种硬件中断处理程序、５种本人详细设计的异常处理程序和４种没有实际操作的普通系统特权程序。共１２个，所以占用６页。
 
