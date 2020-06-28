@@ -574,6 +574,8 @@ IO中断是指DMA在启动后与CPU同时处在工作状态，DMA一直执行数
 
 点击进入该文件夹，将内部我之前测试留下的文件都删除。
 
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/blob/master/pictures/6.png)
+
 到HNOS3文件夹的外部找到准备的三个用例，然后选择其中一种用例，打开其文件夹。
 
 ![add image](https://github.com/Nirvana-fsociety/OSsimulation/blob/master/pictures/7.png)
@@ -585,6 +587,8 @@ IO中断是指DMA在启动后与CPU同时处在工作状态，DMA一直执行数
 ![add image](https://github.com/Nirvana-fsociety/OSsimulation/blob/master/pictures/8.png)
 
 然后重新调出程序界面，点击“选用外存文件”按钮，会发现请求序列变为用例的请求序列，其实已经将用例读入。
+
+![add image](https://github.com/Nirvana-fsociety/OSsimulation/blob/master/pictures/9.png)
 
 点击系统启动即可。中途可以通过点击创建请求来创建随机生成的请求（建议在测试用例时不要这么做，因为新请求的进入并创建为进程会打乱本人提供原有用例的触发效果如时间差导致死锁效果失效。）
 
